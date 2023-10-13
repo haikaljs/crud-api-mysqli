@@ -1,6 +1,6 @@
 <?php 
     
-    $host = "localshost";
+    $host = "localhost";
     $username = "root";
     $password = "";
     $dbname = "crud-api-mysqli";
