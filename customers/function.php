@@ -150,8 +150,66 @@ function updateCustomer($customerInput, $customerParams){
             echo json_encode($data);
         }
     }
+
+ 
+
 }
 
+   // function delete customer
+    function deleteCustomer($customerParams){
+
+        global $conn;
+
+        if(!isset($customerParams['id'])){
+            return error422('Customer id not found in URL');
+        }elseif($customerParams['id'] == null){
+            return error422('Enter customer id');
+        }
+
+        $customerId = mysqli_real_escape_string($conn, $customerParams['id']);
+        if( existId($customerId)){
+
+            $query = "DELETE FROM customers WHERE id='$customerId' LIMIT 1";
+            $result = mysqli_query($conn, $query);
+    
+            if($result){
+                $data = [
+                    'status' => 200,
+                    'message' => "Delete success",
+                    'data' => "Display"
+                    
+                ];
+                header("HTTP/1.0 200 OK");
+                return  json_encode($data);
+        }
+      
+
+        }else{
+            $data = [
+                'status' => 404,
+                'message' => "Not Found",
+                
+            ];
+            header("HTTP/1.0 404 Not Found");
+            echo json_encode($data);
+        }
+
+    }
+
+    // function to check id exists
+    function existId($id){
+        global $conn;
+        $query = "SELECT id FROM customers WHERE id=$id LIMIT 1";
+        $result = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($result) == 1){
+            return true;
+        }else{
+            return false;
+        }
+      
+
+    }
 
 
 ?>
