@@ -15,7 +15,7 @@
     }else{
         $data = [
             'status' => 405,
-            'message' => $requestMethod . "Method not allowed",
+            'message' => $requestMethod . " " . "Method not allowed",
             
         ];
         header("HTTP/1.0 Method Not Allowed");
