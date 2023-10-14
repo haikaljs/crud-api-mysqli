@@ -10,21 +10,12 @@
     $requestMethod = $_SERVER["REQUEST_METHOD"];
 
     if($requestMethod == "GET"){
-
+        // fetch single customer
         if(isset($_GET['id'])){
             $customer = getCustomer($_GET);
             echo $customer;
         }
-        elseif(isset($_GET['id']) !== 'id'){
-            $data = [
-                'status' => 404,
-                'message' => "Customer not found",
-                
-                
-            ];
-            header("HTTP/1.0 404 Not found");
-            echo json_encode($data);
-        }
+        // fetch all customers
         else{
             $customerList = getCustomerList();
             echo $customerList;
@@ -40,6 +31,7 @@
         echo json_encode($data);
     }
 
+    // function fetch single customer
     function getCustomer($customerParams){
 
         global $conn;
@@ -59,6 +51,7 @@
                 $data = [
                     'status' => 200,
                     'message' => "Customer fetch successfully",
+                    'data' => $res
                     
                     
                 ];
